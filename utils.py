@@ -60,8 +60,11 @@ def execute_query(query, params=None):
 
 def hash_clave(clave):
     clave_bytes = clave.encode('utf-8') # porque bcrypt requiere que este en bytes
-    hashed = bcrypt.hashpw(clave_bytes, bcrypt.gensalt.decode('utf-8'))
+    hashed = bcrypt.hashpw(clave_bytes, bcrypt.gensalt())
     return hashed
+
+def check_password(clave, hash):
+    return bcrypt.checkpw(clave.encode('utf-8'), hash)
 
 def db_login(user, clave):
     clave = hash_clave(clave)
