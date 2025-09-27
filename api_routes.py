@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify, session
+from utils import db_login
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -28,7 +29,7 @@ def signup_api():
     if not all([first_name, last_name, username, password, role]):
         return jsonify({'message': 'Faltan datos obligatorios'}), 400
 
-    # TODO: Persistir en DB
+    db_login(username, password)
 
     session['usuario_id'] = username # Esto es temporal hasta que tengamos la db
     session['role'] = role
