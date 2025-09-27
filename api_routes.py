@@ -33,3 +33,19 @@ def signup_api():
     session['role'] = role
 
     return jsonify({'message': 'Usuario registrado correctamente'})
+
+@api_bp.route('/publicar', methods=['POST'])
+def publicar_api():
+    data = request.get_json()
+
+    required_fields = ['titulo', 'descripcion', 'barrio', 'calle', 
+                       'ambientes', 'balcon', 'precio']
+    
+    if not all(field in data and data[field] != '' for field in required_fields):
+        return jsonify({'message': 'Faltan campos obligatorios'}), 400
+    
+    print("Nueva publicación recibida:")
+    for k, v in data.items():
+        print(f"{k}: {v}")
+
+    return jsonify({'message': 'Publicación registrada correctamente'}), 200

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publicar propiedad</title>
+</head>
+<body>
+    <h1>Alta de publicación</h1>
+    <form id="publicarForm">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea><br>
+
+        <label for="barrio">Barrio:</label>
+        <input type="text" id="barrio" name="barrio" required><br>
+
+        <label for="calle">Calle:</label>
+        <input type="text" id="calle" name="calle" required><br>
+
+        <label for="ambientes">Ambientes:</label>
+        <input type="number" id="ambientes" name="ambientes" required><br>
+
+        <label for="balcon">Balcón</label>
+        <select id="balcon" name="balcon" required>
+            <option value="1">Sí</option>
+            <option value="0">No</option>
+        </select><br>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" required><br>
+
+        <button type="submit">Publicar</button>
+    </form>
+
+    <script src="{{ url_for('static', filename='js/publicar.js') }}"></script>
+</body>
+</html>

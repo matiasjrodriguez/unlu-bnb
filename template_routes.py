@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from utils import login_required
+from utils import login_required, roles_required
 
 template_bp = Blueprint('templates', __name__)
 
@@ -19,3 +19,9 @@ def signup():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
+
+@template_bp.route('/publicar')
+@login_required
+@roles_required(2, 3, 4)
+def publicar():
+    return render_template('publicar.html')
