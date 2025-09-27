@@ -5,6 +5,7 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
         first_name: document.getElementById('firstName').value,
         last_name: document.getElementById('lastName').value,
         username: document.getElementById('username').value,
+        password: document.getElementById('password'). value,
         role: parseInt(document.getElementById('role').value)
     };
 

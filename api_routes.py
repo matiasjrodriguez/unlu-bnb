@@ -22,9 +22,10 @@ def signup_api():
     first_name = data.get('first_name')
     last_name = data.get('last_name')
     username = data.get('username')
+    password = data.get('password')
     role = data.get('role')
 
-    if not all([first_name, last_name, username, role]):
+    if not all([first_name, last_name, username, password, role]):
         return jsonify({'message': 'Faltan datos obligatorios'}), 400
 
     # TODO: Persistir en DB
