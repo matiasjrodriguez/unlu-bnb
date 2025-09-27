@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrese</title>
+</head>
+<body>
+    <h1>Crear cuenta</h1>
+    <form id="signupForm">
+        <label for="firstName">Nombre:</label>
+        <input type="text" id="firstName" name="firstName" required><br>
+
+        <label for="lastName">Apellido:</label>
+        <input type="text" id="lastName" name="lastName" required><br>
+
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="role">Rol:</label>
+        <select id="role" name="role" required>
+            <option value="">Seleccionar</option>
+            <option value="1">Estudiante</option>
+            <option value="2">Propietario</option>
+        </select><br>
+
+        <button type="submit">Registrarse</button>
+    </form>
+
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+</body>
+</html>
