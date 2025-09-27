@@ -9,3 +9,15 @@ def login_required(f):
             return redirect(url_for('templates.login'))
         return f(*args, **kwargs)
     return decorated_function
+
+def roles_required(*allowed_roles):
+    def decorator(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            role = session.get('role')
+            if role not in allowed_roles:
+                flash('No tenés permisos para acceder a esta página.')
+                return redirect(url_for('templates.dashboard'))
+            return f(*args, **kwargs)
+        return wrapped
+    return decorator

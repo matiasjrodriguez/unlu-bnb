@@ -30,5 +30,6 @@ def signup_api():
     # TODO: Persistir en DB
 
     session['usuario_id'] = username # Esto es temporal hasta que tengamos la db
+    session['role'] = role
 
     return jsonify({'message': 'Usuario registrado correctamente'})
