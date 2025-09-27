@@ -15,9 +15,14 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
         },
         body: JSON.stringify(data)
     })
-    .then(res => res.json())
-    .then(response => {
-        alert(response.message || 'Registro exitoso');
+    .then(res => {
+        if (res.status === 200) {
+            window.location.href = '/dashboard';
+        } else {
+            return res.json().then(response => {
+                alert(response.message || 'Error en el registro');
+            });
+        }
     })
     .catch(error => {
         console.error('Error:', error);
