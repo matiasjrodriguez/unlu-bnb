@@ -1,5 +1,8 @@
 from functools import wraps
 from flask import session, redirect, url_for, flash
+import psycopg2
+import os
+from dotenv import load_dotenv
 
 def login_required(f):
     @wraps(f)
@@ -21,3 +24,31 @@ def roles_required(*allowed_roles):
             return f(*args, **kwargs)
         return wrapped
     return decorator
+
+def get_db_connection():
+    load_dotenv()
+    return psycopg2.connect(
+        dbname=os.getenv("DBNAME"),
+        user=os.getenv("DBUSER"),
+        password=os.getenv("PASSWORD"),
+        host=os.getenv("HOST"),
+        port=os.getenv("PORT")
+    )
+
+def execute_query(query, params=None):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute(query, params)
+        conn.commit()
+        result = cur.fetchall() if cur.description else None
+    except Exception as e:
+        conn.rollback()
+        raise e
+    finally:
+        cur.close()
+        conn.close()
+    return result
+
+def db_login(user, clave):
+    execute_query("INSERT INTO login (username, clave) VALUES (%s, %s)", (user, clave))
