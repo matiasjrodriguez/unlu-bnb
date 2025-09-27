@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import session, redirect, url_for, flash
-import psycopg2
+import psycopg
 import os
 from dotenv import load_dotenv
 
@@ -27,12 +27,19 @@ def roles_required(*allowed_roles):
 
 def get_db_connection():
     load_dotenv()
-    return psycopg2.connect(
-        dbname=os.getenv("DBNAME"),
-        user=os.getenv("DBUSER"),
-        password=os.getenv("PASSWORD"),
-        host=os.getenv("HOST"),
-        port=os.getenv("PORT")
+
+    DBNAME = os.getenv("DBNAME")
+    DBUSER = os.getenv("DBUSER")
+    PASSWORD = os.getenv("PASSWORD")
+    HOST = os.getenv("HOST")
+    PORT = os.getenv("PORT")
+
+    return psycopg.connect(
+        dbname=DBNAME,
+        user=DBUSER,
+        password=PASSWORD,
+        host=HOST,
+        port=PORT
     )
 
 def execute_query(query, params=None):
@@ -51,10 +58,11 @@ def execute_query(query, params=None):
     return result
 
 def db_login(user, clave):
-    execute_query("INSERT INTO login (username, clave) VALUES (%s, %s)", (user, clave))
+    result = execute_query("INSERT INTO login (usuario, clave) VALUES (%s, %s) RETURNING id", (user, clave))
+    return result[0][0]
 
-def db_usuario(user, nombre, apellido, rol):
-    execute_query("INSERT INTO usuario (nombre_usuario, nombre, apellido, rol) VALUES (%s, %s, %s, %s)", (user, nombre, apellido, rol))
+def db_usuario(id, user, nombre, apellido, rol):
+    execute_query("INSERT INTO usuario (id, usuario, nombre, apellido, rol) VALUES (%s, %s, %s, %s, %s)", (id, user, nombre, apellido, rol))
 
 def db_recuperar_usuario(usuario):
-    return execute_query("SELECT * FROM login WHERE username = %s", (usuario,))
+    return execute_query("SELECT * FROM login WHERE usuario = %s", (usuario,))
