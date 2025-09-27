@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, session
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -28,5 +28,7 @@ def signup_api():
         return jsonify({'message': 'Faltan datos obligatorios'}), 400
 
     # TODO: Persistir en DB
+
+    session['usuario_id'] = username # Esto es temporal hasta que tengamos la db
 
     return jsonify({'message': 'Usuario registrado correctamente'})
