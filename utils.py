@@ -3,6 +3,7 @@ from flask import session, redirect, url_for, flash
 import psycopg
 import os
 from dotenv import load_dotenv
+import bcrypt
 
 def login_required(f):
     @wraps(f)
@@ -57,7 +58,13 @@ def execute_query(query, params=None):
         conn.close()
     return result
 
+def hash_clave(clave):
+    clave_bytes = clave.encode('utf-8') # porque bcrypt requiere que este en bytes
+    hashed = bcrypt.hashpw(clave_bytes, bcrypt.gensalt.decode('utf-8'))
+    return hashed
+
 def db_login(user, clave):
+    clave = hash_clave(clave)
     result = execute_query("INSERT INTO login (usuario, clave) VALUES (%s, %s) RETURNING id", (user, clave))
     return result[0][0]
 
