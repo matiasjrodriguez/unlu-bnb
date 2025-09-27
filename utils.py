@@ -52,3 +52,9 @@ def execute_query(query, params=None):
 
 def db_login(user, clave):
     execute_query("INSERT INTO login (username, clave) VALUES (%s, %s)", (user, clave))
+
+def db_usuario(user, nombre, apellido, rol):
+    execute_query("INSERT INTO usuario (nombre_usuario, nombre, apellido, rol) VALUES (%s, %s, %s, %s)", (user, nombre, apellido, rol))
+
+def db_recuperar_usuario(usuario):
+    return execute_query("SELECT * FROM login WHERE username = %s", (usuario,))
