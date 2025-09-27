@@ -4,8 +4,16 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 @api_bp.route('/login')
 def login_api():
-    # Lógica de negocio
-    return {'status': 'ok'}
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    # Validación básica
+    if not username or not password:
+        return jsonify({'message': 'Usuario y contraseña son obligatorios'}), 400
+
+    # TODO: Recuperar de base de datos y comparar
+    return jsonify({'message': 'Inicio de sesión exitoso'})
 
 @api_bp.route('/signup', methods=['POST'])
 def signup_api():
