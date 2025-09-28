@@ -1,1 +1,41 @@
-<h1>Bienvenido, {{ session['usuario'] }}</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css') }}">
+</head>
+<body>
+    <h1>Hola {{ session['usuario'] }} 👋</h1>
+
+    <a href="{{ url_for('templates.publicar') }}">
+        <button>📢 Publicar nueva propiedad</button>
+    </a>
+
+    <h2>Mis publicaciones actuales</h2>
+
+    {% if publicaciones %}
+        {% for pub in publicaciones %}
+            <div class="publicacion">
+                <h3>{{ pub.titulo }}</h3>
+                <p>{{ pub.descripcion }}</p>
+                <p><strong>Ubicación:</strong> {{ pub.calle }}, {{ pub.barrio }}</p>
+
+                <div class="acciones">
+                    <a href="{{ url_for('templates.editar_publicacion', id=pub.id) }}"><button>✏️ Editar</button></a>
+                    <form action="#" method="POST" style="display:inline;"></form>
+                        <button type="submit">⏸️ Pausar</button>
+                    </form>
+                    <form action="#" method="POST" style="display:inline;"></form>
+                        <button type="submit" onclick="return confirm('¿Estás seguro de que querés eliminar esta publicación?')">🗑️ Eliminar</button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p style="font-style: italic; color: gray;">Todavía no tenés publicaciones activas. ¡Publicá una propiedad para empezar!</p>
+    {% endif %}
+</body>
+</html>

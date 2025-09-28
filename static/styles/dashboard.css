@@ -1,0 +1,13 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.publicacion {
+    margin-bottom: 40px;
+}
+
+.acciones button {
+    margin-right: 10px;
+}
+
