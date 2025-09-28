@@ -1,39 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/publicar.css') }}">
     <title>Publicar propiedad</title>
 </head>
 <body>
-    <h1>Alta de publicación</h1>
-    <form id="publicarForm" enctype="multipart/form-data">
-        <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" required><br>
+    <div class="fondo">
+    <div class="div">
+    <div class="container">
+    <div class="modal">
+    <div class="modal__header">
+    <span class="modal__title">Alta de publicación</span>
+    <button class="button button--icon">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path fill="none" d="M0 0h24v24H0V0z"></path>
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path>
+        </svg>
+      </button>
+    </div>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" required></textarea><br>
+    <div class="modal__body">
+      <div class="input">
+        <form id="publicarForm" enctype="multipart/form-data">
+        <label for="titulo" class="input__label">Título:</label>
+        <input type="text" id="titulo" name="titulo" class="input__field"required><br>
+    </div>
 
-        <label for="barrio">Barrio:</label>
-        <input type="text" id="barrio" name="barrio" required><br>
+    <div class="input">
+        <label for="descripcion" class="input__label">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" class="input__field input__field--textarea" required></textarea><br>
+    </div>
 
-        <label for="calle">Calle:</label>
-        <input type="text" id="calle" name="calle" required><br>
+    <div class="input">
+        <label for="barrio" class="input__label">Barrio:</label>
+        <input type="text" id="barrio" name="barrio" class="input__field" required><br>
+    </div>
 
-        <label for="ambientes">Ambientes:</label>
-        <input type="number" id="ambientes" name="ambientes" required><br>
+    <div class="input">
+        <label for="calle" class="input__label">Calle:</label>
+        <input type="text" id="calle" name="calle" class="input__field" required><br>
+    </div>
 
-        <label for="balcon">Balcón</label>
-        <select id="balcon" name="balcon" required>
+    <div class="input">
+        <label for="ambientes" class="input__label">Ambientes:</label>
+        <input type="number" id="ambientes" name="ambientes" class="input__field" required><br>
+    </div>
+
+    <div class="input">
+        <label for="balcon" class="input__label">Balcón</label>
+        <select id="balcon" name="balcon" class="input__field" required>
             <option value="1">Sí</option>
             <option value="0">No</option>
         </select><br>
+    </div>
 
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" name="precio" required><br>
+    <div class="input">
+        <label for="precio" class="input__label">Precio:</label>
+        <input type="number" id="precio" name="precio" class="input__field" required><br>
+    </div>
 
-        <label for="imagenes">Imágenes:</label>
-        <input type="file" id="imagenes" name="imagenes" multiple accept="image/*"><br>
-
-        <button type="submit">Publicar</button>
+    <div class="input">
+        <label for="imagenes" class="input__label">Imágenes:</label>
+        <input type="file" id="imagenes" name="imagenes" multiple accept="image/*" class="input__field"><br>
+        </div>
+    </div>
+    
+    <div class="modal__footer">
+        <button type="submit" class="button button--primary">Publicar</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </form>
 
     <script src="{{ url_for('static', filename='js/publicar.js') }}"></script>

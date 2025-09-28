@@ -1,0 +1,128 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-image: radial-gradient(circle, greenyellow, transparent 20%, green);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 15px 30px 0 rgba(0, 125, 171, 0.15);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+}
+
+.modal__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal__body {
+  margin-top: 1.5rem;
+}
+
+.modal__footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.input__label {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.input__field,
+.input__field--textarea,
+select {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #DDD;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input__field--textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+.input__description {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  color: #8d8d8d;
+}
+
+.button {
+  appearance: none;
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease;
+}
+
+.button--icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: transparent;
+  border-radius: 0.25rem;
+}
+
+.button--icon:focus,
+.button--icon:hover {
+  background-color: #ededed;
+}
+
+.button--primary {
+  background-color: #007dab;
+  color: #FFF;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.button--primary:hover {
+  background-color: #006489;
+}
