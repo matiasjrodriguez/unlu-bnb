@@ -77,5 +77,8 @@ def db_usuario(id, user, nombre, apellido, rol):
 def db_recuperar_usuario(usuario):
     return execute_query("SELECT * FROM login WHERE usuario = %s", (usuario,))
 
+def db_recuperar_rol(id):
+    return execute_query("SELECT rol FROM usuario WHERE id = %s", (id,))
+
 def db_publicacion(titulo, descripcion, barrio, calle, ambientes, balcon, usuario_id, autor, imagenes, precio):
     execute_query("INSERT INTO publicacion (titulo, descripcion, barrio, calle, ambientes, balcon, usuario_id, autor, imagenes, precio) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (titulo, descripcion, barrio, calle, ambientes, balcon, usuario_id, autor, imagenes, precio))

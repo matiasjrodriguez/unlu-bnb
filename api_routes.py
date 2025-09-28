@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, session
-from utils import db_login
+from utils import db_login, db_usuario, db_recuperar_usuario, check_password, db_recuperar_rol
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -13,8 +13,24 @@ def login_api():
     if not username or not password:
         return jsonify({'message': 'Usuario y contraseña son obligatorios'}), 400
 
-    # TODO: Recuperar de base de datos y comparar
-    return jsonify({'message': 'Inicio de sesión exitoso'})
+    usuario_instancia = db_recuperar_usuario(username)
+    
+    if not usuario_instancia:
+        return jsonify({'message': 'Usuario o contraseña incorrectos'}), 401
+    
+    id = usuario_instancia[0][0]
+    usuario = usuario_instancia[0][1]
+    clave = usuario_instancia[0][2]
+
+    if not check_password(password, clave):
+        return jsonify({'message': 'Usuario o contraseña incorrectos'}), 401
+    
+    rol = db_recuperar_rol(id)[0][0]
+
+    session['usuario_id'] = id
+    session['role'] = rol
+
+    return jsonify({'message': 'Inicio de sesión exitoso'}), 200
 
 @api_bp.route('/signup', methods=['POST'])
 def signup_api():
@@ -28,13 +44,19 @@ def signup_api():
 
     if not all([first_name, last_name, username, password, role]):
         return jsonify({'message': 'Faltan datos obligatorios'}), 400
+    
+    usuario = db_recuperar_usuario(username)
 
-    db_login(username, password)
+    if usuario:
+        return jsonify({'message': 'El nombre de usuario ya existe'}), 409
+    
+    user_id = db_login(username, password)
+    db_usuario(user_id, username, first_name, last_name, role)
 
-    session['usuario_id'] = username # Esto es temporal hasta que tengamos la db
+    session['usuario_id'] = user_id
     session['role'] = role
 
-    return jsonify({'message': 'Usuario registrado correctamente'})
+    return jsonify({'message': 'Usuario registrado correctamente'}), 200
 
 @api_bp.route('/publicar', methods=['POST'])
 def publicar_api():
