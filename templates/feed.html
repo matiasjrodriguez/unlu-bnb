@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/feed.css') }}">
+    <title>Feed de propiedades</title>
+</head>
+<body>
+    <h1>Propiedades disponibles</h1>
+
+    {% if publicaciones %}
+        {% for pub in publicaciones %}
+            <div class="publicacion">
+                <h2>{{ pub.titulo }}</h2>
+                <p> {{ pub.descripcion }}</p>
+                <p><strong>Ubicación:</strong> {{ pub.calle }}, {{ pub.barrio }}</p>
+                <p><strong>Ambientes:</strong> {{ pub.ambientes }}</p>
+                <p><strong>Balcón:</strong> {{ 'Sí' if pub.balcon == 1 else 'No' }}</p>
+                <p><strong>Precio:</strong> ${{ pub.precio }}</p>
+                <p><strong>Publicado por:</strong> {{ pub.autor }}</p>
+
+                <div class="galeria">
+                    {% for img in pub.imagenes %}
+                        <img src="{{ img }}" alt="Imagen de propiedad" class="imagen-propiedad">
+                    {% endfor %}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+            <p style="font-style: italic; color: gray;">Todavía no hay publicaciones disponibles. Volvé más tarde o contactá a la institución para más información.</p>
+    {% endif %}
+</body>
+</html>

@@ -25,3 +25,12 @@ def dashboard():
 @roles_required(2, 3, 4)
 def publicar():
     return render_template('publicar.html')
+
+@template_bp.route('/feed')
+@login_required
+@roles_required(1, 3, 4)
+def feed():
+    from utils import obtener_todas_las_publicaciones
+    publicaciones=obtener_todas_las_publicaciones()
+    #publicaciones.clear()
+    return render_template('feed.html', publicaciones=publicaciones)

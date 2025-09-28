@@ -1,0 +1,20 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.publicacion {
+    margin-bottom: 40px;
+}
+
+.galeria {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.imagen-propiedad {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+}
