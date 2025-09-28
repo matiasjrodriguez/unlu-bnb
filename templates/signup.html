@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/signup.css') }}">
     <title>Registrese</title>
 </head>
 <body>
-    <h1>Crear cuenta</h1>
-    <form id="signupForm">
-        <label for="firstName">Nombre:</label>
-        <input type="text" id="firstName" name="firstName" required><br>
+    <div class="container">
+    <div class="div">
+    <h1 class="titulo">Crear cuenta</h1>
+    <form id="signupForm" class="signupform">
+        <label for="firstName" class="tag">Nombre:</label><br>
+        <input type="text" id="firstName" name="firstName" class="input" required><br><br>
 
-        <label for="lastName">Apellido:</label>
-        <input type="text" id="lastName" name="lastName" required><br>
+        <label for="lastName" class="tag">Apellido:</label><br>
+        <input type="text" id="lastName" name="lastName" class="input" required><br><br>
 
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" name="username" required><br>
+        <label for="username" class="tag">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" class="input" required><br><br>
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" required><br>
+        <label for="password" class="tag">Contraseña</label>
+        <input type="password" id="password" name="password" class="input" required><br><br>
 
-        <label for="role">Rol:</label>
+        <label for="role" class="tag">Rol:</label>
         <select id="role" name="role" required>
             <option value="">Seleccionar</option>
             <option value="1">Estudiante</option>
             <option value="2">Propietario</option>
         </select><br>
 
-        <button type="submit">Registrarse</button>
+        <br><button type="submit" class="submit">Registrarse</button>
     </form>
-
+    </div>
+    </div>
     <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
 </body>
 </html>
