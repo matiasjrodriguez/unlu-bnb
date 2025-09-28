@@ -4,23 +4,20 @@ body {
   justify-content: center; 
   align-items: center;     
   margin: 0;
+  background-image: radial-gradient(circle, greenyellow, transparent 20%, green);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: green;
 }
 
 .div {
   text-align : center;
   align-items : center;
 }
-
 .container {
-  width: 100vw;
-  height: 100vh;
-  background-image: radial-gradient(circle, greenyellow, transparent 20%, green);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: green;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  max-width: 600px;   
+  width: 90%;         
+  text-align: center;        
 }
 
 .btn-verde {
