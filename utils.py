@@ -110,3 +110,33 @@ def db_publicacion(titulo, descripcion, barrio, calle, ambientes, balcon, usuari
 
     execute_query(query, params)
     
+def obtener_todas_las_publicaciones():
+    
+    import json
+
+    query = """
+        SELECT titulo, descripcion, barrio, calle, ambientes, balcon, autor, precio, imagenes
+        FROM publicacion
+        ORDER BY id DESC
+    """
+    
+    filas = execute_query(query)
+    publicaciones = []
+
+    for fila in filas:
+        publicacion = {
+            'titulo': fila[0],
+            'descripcion': fila[1],
+            'barrio': fila[2],
+            'calle': fila[3],
+            'ambientes': fila[4],
+            'balcon': fila[5],
+            'autor': fila[6],
+            'precio': fila[7],
+            'imagenes': fila[8] if fila[8] else []
+        }
+        publicaciones.append(publicacion)
+
+    return publicaciones
+
+publicaciones = obtener_todas_las_publicaciones()
