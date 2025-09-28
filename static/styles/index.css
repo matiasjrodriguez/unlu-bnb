@@ -7,4 +7,15 @@
     font-weight: bold;
     cursor: pointer;
     margin: 10px;
+    align-items : center;
+}
+
+.centrar-botones{
+    text-align: center;
+}
+
+h1 {
+    font-family:Arial, Helvetica, sans-serif;
+    text-align : center;
+    color : #1b5e20;
 }
