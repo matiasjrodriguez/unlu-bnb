@@ -20,13 +20,18 @@
 
         <label for="password" class="tag">Contraseña</label>
         <input type="password" id="password" name="password" class="input" required><br><br>
+    
+        <div class="radio-input">
+            <label for="role" class="label">
+                <span class="tag">Rol:</span>
+                <select id="role" name="role" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Estudiante</option>
+                <option value="2">Propietario</option>
+                </select>
+            </label>
+        </div>
 
-        <label for="role" class="tag">Rol:</label>
-        <select id="role" name="role" required>
-            <option value="">Seleccionar</option>
-            <option value="1">Estudiante</option>
-            <option value="2">Propietario</option>
-        </select><br>
 
         <br><button type="submit" class="submit">Registrarse</button>
     </form>

@@ -78,3 +78,66 @@ background-color: #fff;
   text-transform: uppercase;
 }
 
+.radio-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-input * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.radio-input label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0px 20px;
+  width: 220px; /* ancho fijo como en el ejemplo */
+  cursor: pointer;
+  height: 50px;
+  position: relative;
+}
+
+.radio-input label::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 45px;
+  z-index: -1;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-color: #fff
+}
+
+.radio-input label:hover::before {
+  background-color: #ffff;
+}
+
+.radio-input .label .text {
+  color: #fff;
+  min-width: 50px; /* espacio para la palabra "Rol:" */
+}
+
+.radio-input select {
+  background-color: #ffff;
+  color: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  height: 35px;
+  width: 150px;
+  padding: 0 10px;
+  font-size: 14px;
+  cursor: pointer;
+  appearance: none; 
+}
+
+.radio-input select option {
+  background-color: #28A745;
+  color: #fff;
+}
