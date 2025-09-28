@@ -1,5 +1,9 @@
-from flask import Blueprint, request, jsonify, session
-from utils import db_login, db_usuario, db_recuperar_usuario, check_password, db_recuperar_rol, login_required, roles_required
+from flask import Blueprint, redirect, request, jsonify, session, url_for
+from utils import db_login, db_usuario, db_recuperar_usuario, check_password, db_recuperar_rol, login_required, roles_required, allowed_file, UPLOAD_FOLDER
+from werkzeug.utils import secure_filename
+from datetime import datetime
+import os
+import json
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -65,11 +69,7 @@ def signup_api():
 @roles_required(2, 3, 4)
 def publicar_api():
 
-    from utils import allowed_file, UPLOAD_FOLDER, db_publicacion
-    from werkzeug.utils import secure_filename
-    from datetime import datetime
-    import os
-    import json
+    from utils import db_publicacion
 
     titulo = request.form.get('titulo')
     descripcion = request.form.get('descripcion')
@@ -99,3 +99,46 @@ def publicar_api():
     db_publicacion(titulo, descripcion, barrio, calle, ambientes, balcon, session['usuario_id'], session['usuario'], web_paths, precio)
 
     return jsonify({'message': 'Publicación registrada correctamente'}), 200
+
+@api_bp.route('/actualizar/<int:id>', methods=['POST'])
+@login_required
+@roles_required(2, 3, 4)
+def actualizar_publicacion(id):
+    from utils import obtener_publicacion_por_id, actualizar_publicacion_por_id
+
+    publicacion = obtener_publicacion_por_id(id)
+
+    if not publicacion:
+        return jsonify({'error': 'Publicación no encontrada'}), 404
+    
+    if session['role'] != 4:
+        if publicacion['usuario_id'] != session['usuario_id']:
+            return jsonify({'error': 'No autorizado'}), 403
+        
+    titulo = request.form.get('titulo')
+    descripcion = request.form.get('descripcion')
+    barrio = request.form.get('barrio')
+    calle = request.form.get('calle')
+    ambientes = request.form.get('ambientes')
+    balcon = request.form.get('balcon')
+    precio = request.form.get('precio')
+
+    nuevas_imagenes = []
+    if 'imagenes' in request.files:
+        files = request.files.getlist('imagenes')
+        for file in files:
+            if file and allowed_file(file.filename):
+                original = secure_filename(file.filename)
+                timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+                usuario = session.get('usuario')
+                nuevo_nombre = f"{usuario}_{timestamp}_{original}"
+                path = os.path.join(UPLOAD_FOLDER, nuevo_nombre)
+                file.save(path)
+                nuevas_imagenes.append(path.replace('\\', '/'))
+
+    todas_imagenes = publicacion['imagenes'] + nuevas_imagenes
+    imagenes_json = json.dumps(todas_imagenes)
+
+    actualizar_publicacion_por_id(id, titulo, descripcion, barrio, calle, ambientes, balcon, precio, imagenes_json)
+
+    return redirect(url_for('templates.dashboard'))

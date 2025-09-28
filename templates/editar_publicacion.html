@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/feed.css') }}">
+    <title>Editar publicacion</title>
+</head>
+<body>
+    <h1>Editar publicación</h1>
+
+<form action="{{ url_for('api.actualizar_publicacion', id=publicacion.id) }}" method="POST" enctype="multipart/form-data">
+    <label>Título:</label>
+    <input type="text" name="titulo" value="{{ publicacion.titulo }}" required><br>
+
+    <label>Descripción:</label>
+    <textarea name="descripcion" required>{{ publicacion.descripcion }}</textarea><br>
+
+    <label>Barrio:</label>
+    <input type="text" name="barrio" value="{{ publicacion.barrio }}" required><br>
+
+    <label>Calle:</label>
+    <input type="text" name="calle" value="{{ publicacion.calle }}" required><br>
+
+    <label>Ambientes:</label>
+    <input type="number" name="ambientes" value="{{ publicacion.ambientes }}" required><br>
+
+    <label>Balcón:</label>
+    <select name="balcon">
+        <option value="1" {% if publicacion.balcon == 1 %}selected{% endif %}>Sí</option>
+        <option value="0" {% if publicacion.balcon == 0 %}selected{% endif %}>No</option>
+    </select><br>
+
+    <label>Precio:</label>
+    <input type="number" name="precio" value="{{ publicacion.precio }}" required><br>
+
+    <label>Imágenes actuales:</label>
+    <div class="galeria">
+        {% for img in publicacion.imagenes %}
+            <img src="{{ url_for('static', filename=img.split('static/')[1]) }}" alt="Imagen actual" class="imagen-propiedad">
+        {% endfor %}
+    </div><br>
+
+    <label>Agregar nuevas imágenes:</label>
+    <input type="file" name="imagenes" multiple accept="image/*"><br>
+
+    <button type="submit">💾 Guardar cambios</button>
+</form>
+</body>
+</html>

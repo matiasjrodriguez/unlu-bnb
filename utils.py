@@ -139,4 +139,72 @@ def obtener_todas_las_publicaciones():
 
     return publicaciones
 
-publicaciones = obtener_todas_las_publicaciones()
+def obtener_publicaciones_por_usuario(id):
+
+    query = """
+        SELECT id, titulo, descripcion, barrio, calle, ambientes, balcon, precio, imagenes
+        FROM publicacion
+        WHERE usuario_id = %s
+        ORDER BY id DESC
+    """
+
+    filas = execute_query(query, (id,))
+    publicaciones = []
+
+    for fila in filas:
+        publicacion = {
+            'id': fila[0],    
+            'titulo': fila[1],
+            'descripcion': fila[2],
+            'barrio': fila[3],
+            'calle': fila[4],
+            'ambientes': fila[5],
+            'balcon': fila[6],
+            'precio': fila[7],
+            'imagenes': fila[8] if fila[8] else []
+        }
+        publicaciones.append(publicacion)
+
+    return publicaciones
+
+def obtener_publicacion_por_id(id):
+    
+    query = """
+        SELECT id, titulo, descripcion, barrio, calle, ambientes, balcon, precio, imagenes, usuario_id
+        FROM publicacion
+        WHERE id = %s
+    """
+
+    resultado = execute_query(query, (id,))
+
+    if not resultado:
+        return None
+    
+    fila = resultado[0]
+    return {
+        'id': fila[0],    
+        'titulo': fila[1],
+        'descripcion': fila[2],
+        'barrio': fila[3],
+        'calle': fila[4],
+        'ambientes': fila[5],
+        'balcon': fila[6],
+        'precio': fila[7],
+        'imagenes': fila[8] if fila[8] else [],    
+        'usuario_id': fila[9]    
+    }   
+
+def actualizar_publicacion_por_id(id, titulo, descripcion, barrio, calle, ambientes, balcon, precio, imagenes):
+    query = """
+        UPDATE publicacion
+        SET titulo = %s, descripcion = %s, barrio = %s, calle = %s,
+            ambientes = %s, balcon = %s, precio = %s, imagenes = %s
+        WHERE id = %s
+    """
+
+    params = (
+        titulo, descripcion, barrio, calle,
+        ambientes, balcon, precio, imagenes, id
+    )
+
+    execute_query(query, params)
