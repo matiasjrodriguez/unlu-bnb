@@ -1,21 +1,52 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  margin: 0;
+}
+
+.div {
+  text-align : center;
+  align-items : center;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-image: radial-gradient(circle, greenyellow, transparent 20%, green);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .btn-verde {
-    padding: 10px 20px;
-    background-color: #28A745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 10px;
-    align-items : center;
+    display: block;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  background-color: #28A745;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 100%;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
 }
 
 .centrar-botones{
     text-align: center;
 }
-
-h1 {
-    font-family:Arial, Helvetica, sans-serif;
-    text-align : center;
-    color : #1b5e20;
+.titulo{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
 }
