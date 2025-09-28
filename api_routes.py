@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, session
-from utils import db_login, db_usuario, db_recuperar_usuario, check_password, db_recuperar_rol
+from utils import db_login, db_usuario, db_recuperar_usuario, check_password, db_recuperar_rol, login_required, roles_required
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -28,6 +28,7 @@ def login_api():
     rol = db_recuperar_rol(id)[0][0]
 
     session['usuario_id'] = id
+    session['usuario'] = usuario
     session['role'] = rol
 
     return jsonify({'message': 'Inicio de sesión exitoso'}), 200
@@ -54,22 +55,47 @@ def signup_api():
     db_usuario(user_id, username, first_name, last_name, role)
 
     session['usuario_id'] = user_id
+    session['usuario'] = username
     session['role'] = role
 
     return jsonify({'message': 'Usuario registrado correctamente'}), 200
 
 @api_bp.route('/publicar', methods=['POST'])
+@login_required
+@roles_required(2, 3, 4)
 def publicar_api():
-    data = request.get_json()
 
-    required_fields = ['titulo', 'descripcion', 'barrio', 'calle', 
-                       'ambientes', 'balcon', 'precio']
+    from utils import allowed_file, UPLOAD_FOLDER, db_publicacion
+    from werkzeug.utils import secure_filename
+    from datetime import datetime
+    import os
+    import json
+
+    titulo = request.form.get('titulo')
+    descripcion = request.form.get('descripcion')
+    barrio = request.form.get('barrio')
+    calle = request.form.get('calle')
+    ambientes = request.form.get('ambientes')
+    balcon = request.form.get('balcon')
+    precio = request.form.get('precio')
+
+    imagenes_guardadas = []
+
+    if 'imagenes' in request.files:
+        files = request.files.getlist('imagenes')
+        for file in files:
+            if file and allowed_file(file.filename):
+                original = secure_filename(file.filename)
+                timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+                filename = f'{session['usuario']}_{timestamp}_{original}'
+                
+                path = os.path.join(UPLOAD_FOLDER, filename)
+                file.save(path)
+                imagenes_guardadas.append(path)
     
-    if not all(field in data and data[field] != '' for field in required_fields):
-        return jsonify({'message': 'Faltan campos obligatorios'}), 400
+    web_paths = [path.replace('\\', '/') for path in imagenes_guardadas]
+    web_paths = json.dumps(web_paths)
     
-    print("Nueva publicación recibida:")
-    for k, v in data.items():
-        print(f"{k}: {v}")
+    db_publicacion(titulo, descripcion, barrio, calle, ambientes, balcon, session['usuario_id'], session['usuario'], web_paths, precio)
 
     return jsonify({'message': 'Publicación registrada correctamente'}), 200
