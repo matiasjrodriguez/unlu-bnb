@@ -1,2 +1,0 @@
-archivo chistoso uwu
-este archivo lo subi solo para que git me deje subir la carpeta de img pero lo voy a borrar a la mierda en el proximo commit
