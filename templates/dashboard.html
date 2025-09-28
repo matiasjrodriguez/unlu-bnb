@@ -24,10 +24,10 @@
 
                 <div class="acciones">
                     <a href="{{ url_for('templates.editar_publicacion', id=pub.id) }}"><button>✏️ Editar</button></a>
-                    <form action="#" method="POST" style="display:inline;"></form>
+                    <!--<form action="#" method="POST" style="display:inline;"></form>
                         <button type="submit">⏸️ Pausar</button>
-                    </form>
-                    <form action="#" method="POST" style="display:inline;"></form>
+                    </form>-->
+                    <form action="{{ url_for('api.eliminar_publicacion', id=pub.id) }}" method="POST" style="display:inline;">
                         <button type="submit" onclick="return confirm('¿Estás seguro de que querés eliminar esta publicación?')">🗑️ Eliminar</button>
                     </form>
                 </div>

@@ -208,3 +208,11 @@ def actualizar_publicacion_por_id(id, titulo, descripcion, barrio, calle, ambien
     )
 
     execute_query(query, params)
+
+def borrar_publicacion_por_id(id):
+    query = """
+        DELETE FROM publicacion
+        WHERE id = %s
+    """
+
+    execute_query(query, (id,))

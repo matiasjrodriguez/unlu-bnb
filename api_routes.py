@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, request, jsonify, session, url_for
-from utils import db_login, db_usuario, db_recuperar_usuario, check_password, db_recuperar_rol, login_required, roles_required, allowed_file, UPLOAD_FOLDER
+from utils import db_login, db_usuario, db_recuperar_usuario, check_password, db_recuperar_rol, login_required, roles_required, allowed_file, UPLOAD_FOLDER, obtener_publicacion_por_id
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
@@ -104,7 +104,7 @@ def publicar_api():
 @login_required
 @roles_required(2, 3, 4)
 def actualizar_publicacion(id):
-    from utils import obtener_publicacion_por_id, actualizar_publicacion_por_id
+    from utils import actualizar_publicacion_por_id
 
     publicacion = obtener_publicacion_por_id(id)
 
@@ -140,5 +140,26 @@ def actualizar_publicacion(id):
     imagenes_json = json.dumps(todas_imagenes)
 
     actualizar_publicacion_por_id(id, titulo, descripcion, barrio, calle, ambientes, balcon, precio, imagenes_json)
+
+    return redirect(url_for('templates.dashboard'))
+
+@api_bp.route('/eliminar/<int:id>', methods=['POST'])
+@login_required
+@roles_required(2, 3, 4)
+def eliminar_publicacion(id):
+
+    from utils import borrar_publicacion_por_id
+
+    publicacion = obtener_publicacion_por_id(id)
+
+    if not publicacion:
+        return jsonify({'error': 'Publicación no encontrada'}), 404
+
+    if session['role'] != 4:
+        if publicacion['usuario_id'] != session['usuario_id']:
+            return jsonify({'error': 'No autorizado'}), 403
+
+    # Eliminar publicación
+    borrar_publicacion_por_id(id)
 
     return redirect(url_for('templates.dashboard'))
