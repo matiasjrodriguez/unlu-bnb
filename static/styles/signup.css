@@ -34,16 +34,17 @@ background-color: #fff;
 }
 
 .titulo{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: sans-serif;
   font-size: 2rem;
   line-height: 1.75rem;
-  font-weight: 600;
+  font-weight: 300;
   text-align: center;
   color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .tag {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: sans-serif;
   font-size: 1rem;
   color: #333;
   margin-bottom: 4px;
@@ -95,7 +96,7 @@ background-color: #fff;
   align-items: center;
   gap: 15px;
   padding: 0px 20px;
-  width: 220px; /* ancho fijo como en el ejemplo */
+  width: 220px; 
   cursor: pointer;
   height: 50px;
   position: relative;
@@ -121,7 +122,7 @@ background-color: #fff;
 
 .radio-input .label .text {
   color: #fff;
-  min-width: 50px; /* espacio para la palabra "Rol:" */
+  min-width: 50px; 
 }
 
 .radio-input select {
