@@ -18,7 +18,12 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
     })
     .then(res => {
         if (res.status === 200) {
-            window.location.href = '/dashboard';
+            if (response.rol === 1) {
+                window.location.href = '/feed';
+            } else {
+                window.location.href = '/dashboard';
+            }
+            
         } else {
             return res.json().then(response => {
                 alert(response.message || 'Error en el registro');
