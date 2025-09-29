@@ -35,7 +35,10 @@ def login_api():
     session['usuario'] = usuario
     session['role'] = rol
 
-    return jsonify({'message': 'Inicio de sesión exitoso'}), 200
+    return jsonify({
+        'message': 'Inicio de sesión exitoso',
+        'rol': rol
+    }), 200
 
 @api_bp.route('/signup', methods=['POST'])
 def signup_api():
