@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css') }}">
 </head>
 <body>
-    <h1>Hola {{ session['usuario'] }} 👋</h1>
+    <h1 class="titulo">Hola {{ session['usuario'] }} 👋</h1>
 
+    <div class="centrar-botones">
     <a href="{{ url_for('templates.publicar') }}">
-        <button>📢 Publicar nueva propiedad</button>
+        <button type="boton" class="button">📢 Publicar nueva propiedad</button>
     </a>
+    </div>
 
-    <h2>Mis publicaciones actuales</h2>
-
+    <h2 class="titulo">Mis publicaciones actuales</h2>
+    <div class="div">
     {% if publicaciones %}
         {% for pub in publicaciones %}
             <div class="publicacion">
@@ -33,9 +35,11 @@
                 </div>
             </div>
             <hr>
+    
         {% endfor %}
+        </div>
     {% else %}
-        <p style="font-style: italic; color: gray;">Todavía no tenés publicaciones activas. ¡Publicá una propiedad para empezar!</p>
+        <p style="font-style: italic; color: #fff;">Todavía no tenés publicaciones activas. ¡Publicá una propiedad para empezar!</p>
     {% endif %}
 </body>
 </html>

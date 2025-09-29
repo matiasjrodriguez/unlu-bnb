@@ -1,9 +1,29 @@
 body {
     font-family: sans-serif;
     padding: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  background-color: green;
+}
+
+.titulo{
+  font-family: sans-serif;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.75rem;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .publicacion {
+    display: flex;
+  flex-direction: column;
+  width: 90vw;
+  background-color: #fff;
+  box-shadow: 0 15px 30px 0 rgba(0, 125, 171, 0.15);
+  border-radius: 10px;
+  padding: 1.5rem;
     margin-bottom: 40px;
 }
 
@@ -17,4 +37,60 @@ body {
     width: 200px;
     height: auto;
     border-radius: 5px;
+}
+
+.boton-editar {
+    margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #DDD;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input__label {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.input__field,
+.input__field--textarea,
+select {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #DDD;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input__field--textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+.input__description {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  color: #8d8d8d;
+}
+
+.button {
+  appearance: none;
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease;
+}
+
+.texto {
+  font-family: sans-serif;
+  font-weight: 300;
+  color: #fff;
 }

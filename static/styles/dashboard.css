@@ -1,6 +1,47 @@
 body {
     font-family: sans-serif;
     padding: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  background-color: green;
+}
+
+.div {
+    display: flex;
+  flex-direction: column;
+  width: 90vw;
+  background-color: #fff;
+  box-shadow: 0 15px 30px 0 rgba(0, 125, 171, 0.15);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.titulo{
+  font-family: sans-serif;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.75rem;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.button {
+  color: #000;
+  font-size: 17px;
+  background-color: #ffff;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  box-shadow: 0px 6px 0px lightgray;
+  transition: all 0.1s;
+}
+
+.button:active {
+  box-shadow: 0px 2px 0px lightslategray;
+  position: relative;
+  top: 2px;
 }
 
 .publicacion {
@@ -11,3 +52,6 @@ body {
     margin-right: 10px;
 }
 
+.centrar-botones{
+    text-align: center;
+}
