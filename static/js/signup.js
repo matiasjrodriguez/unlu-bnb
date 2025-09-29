@@ -17,18 +17,19 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
         body: JSON.stringify(data)
     })
     .then(res => {
-        if (res.status === 200) {
-            if (response.rol === 1) {
-                window.location.href = '/feed';
+        return res.json().then(response=> {
+            if (res.status === 200) {
+                if (response.rol === 1) {
+                    window.location.href = '/feed';
+                } else {
+                    window.location.href = '/dashboard';
+                }
             } else {
-                window.location.href = '/dashboard';
-            }
-            
-        } else {
-            return res.json().then(response => {
                 alert(response.message || 'Error en el registro');
-            });
+            }
         }
+
+        )
     })
     .catch(error => {
         console.error('Error:', error);
