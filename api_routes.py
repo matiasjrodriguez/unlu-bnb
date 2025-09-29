@@ -65,7 +65,10 @@ def signup_api():
     session['usuario'] = username
     session['role'] = role
 
-    return jsonify({'message': 'Usuario registrado correctamente'}), 200
+    return jsonify({
+        'message': 'Usuario registrado correctamente',
+        'rol': role
+        }), 200
 
 @api_bp.route('/publicar', methods=['POST'])
 @login_required
